@@ -41,7 +41,6 @@ class Obst {
         ctx.rect(this.x,this.y,this.width,this.height);
         ctx.fillStyle = 'green'
         ctx.fill();
-        ctx.stroke();
         if(this.x < - 30 ){
             ObstaclesArray.shift();
         }
@@ -52,50 +51,52 @@ class Obst {
             this.height != canvas.height
             ){
                 head.appendChild(loseDiv);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#000000";
+                // ctx.clearRect(0, 0, canvas.width, canvas.height);
                 gameLost = true;
                 clearInterval();
                 ctx.font = "30px Arial";
-                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 70,canvas.height/2);
-                ctx.stroke();
+                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 120,canvas.height/2);
             }
         if(rect.x + rect.square > this.x &&
             rect.x + rect.square  < this.x + this.width &&
             rect.y + rect.square > this.y &&
             this.height == canvas.height){
                 head.appendChild(loseDiv);
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#000000";
+                // ctx.clearRect(0, 0, canvas.width, canvas.height);
                 gameLost = true;
                 clearInterval();
                 ctx.font = "30px Arial";
-                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 70,canvas.height/2);
-                ctx.stroke();
+                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 120,canvas.height/2);
             }
         if(rect.x > this.x &&
             rect.x < this.x + this.width &&
             rect.y < this.height &&
             this.height != canvas.height){
                 head.appendChild(loseDiv);
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#000000";
+                // ctx.clearRect(0, 0, canvas.width, canvas.height);
                 gameLost = true;
                 clearInterval();
                 ctx.font = "30px Arial";
-                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 70,canvas.height/2);
-                ctx.stroke();
+                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 120,canvas.height/2);
             }
         if(rect.x > this.x &&
             rect.x < this.x + this.width &&
             rect.y > this.y &&
             this.height == canvas.height){
                 head.appendChild(loseDiv);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#000000";
+                // ctx.clearRect(0, 0, canvas.width, canvas.height);
                 gameLost = true;
                 clearInterval();
                 ctx.font = "30px Arial";
-                ctx.fillText(`You Lost - ${Score} Point `,(canvas.width/2) - 70,canvas.height/2);
-                ctx.stroke();
+                ctx.fillText(`You Lost - ${Score} Point `,(canvas.width/2) - 120,canvas.height/2);
             }
     }
 
@@ -146,7 +147,6 @@ function createObstacles(){
 function updateScore(){
     ctx.font = "30px Arial";
     ctx.fillText(`${Score++}`,canvas.width- 100, 50 );
-    ctx.stroke();
 }
 
 
@@ -213,17 +213,12 @@ document.addEventListener('keyup', ev => {
 
 // update();
 
-function updateScore(){
-    ctx.font = "30px Arial";
-    ctx.fillText(`${Score++}`,canvas.width- 100, 50 );
-    ctx.stroke();
-}
 
 
 start.addEventListener('click', ev => {
     update();
     start.remove();
-    setInterval(createObstacles, 5000);
+    setInterval(createObstacles, 2000);
 })
 
 restartBtn.addEventListener('click', ev => {
