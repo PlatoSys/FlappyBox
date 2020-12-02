@@ -213,6 +213,31 @@ document.addEventListener('keyup', ev => {
 
 // update();
 
+UP.addEventListener('touchstart', function (e) {
+    Yspeed = -2;
+})
+UP.addEventListener('touchend', function (e) {
+    Yspeed = 0;
+})
+DOWN.addEventListener('touchstart', function (e) {
+    Yspeed = 2;
+})
+DOWN.addEventListener('touchend', function (e) {
+    Yspeed = 0;
+})
+LEFT.addEventListener('touchstart', function (e) {
+    Xspeed = -2;
+})
+LEFT.addEventListener('touchend', function (e) {
+    Xspeed = 0;
+})
+RIGHT.addEventListener('touchstart', function (e) {
+    Xspeed = 2;
+})
+RIGHT.addEventListener('touchend', function (e) {
+    Xspeed = 0;
+})
+
 
 
 start.addEventListener('click', ev => {
