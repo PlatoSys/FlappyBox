@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(185, 185, 185);
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .canvas {
+            margin-top: 10px;
+        }
+
+        .left-right {
+            display: flex;
+            flex-direction: row;
+            margin: 10px;
+            justify-content: space-between;
+
+        }
+
+        .left {
+            margin-right: 30px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="canvas">
+        <canvas id="myCanvas" width="600" height="400" style="border:1px solid #d3d3d3;"></canvas>
+    </div>
+    <div class="up">
+        <button class="btn btn-primary" id="up">Up</button>
+    </div>
+    <div class="left-right">
+        <div class="left">
+            <button class="btn btn-primary left" id="left">Left</button>
+
+        </div>
+        <div class="right">
+            <button class="btn btn-primary right" id="right">Right</button>
+        </div>
+    </div>
+    <div class="down">
+        <button class="btn btn-primary" id="down">Down</button>
+    </div>
+
+</body>
+<script src="app.js"></script>
+
+</html>
