@@ -7,25 +7,99 @@ const RIGHT = document.querySelector('#right');
 const GAP = 100;
 let Xspeed = 0;
 let Yspeed = 0;
-let ObstacleSpeed = 0.5;
+let ObstacleSpeed = 1;
+let Score = 0; 
 let ObstaclesArray = []
+let gameLost = false;
+let head = document.querySelector('.head');
+let start = document.querySelector('#start');
+let loseDiv = document.createElement('div');
+let restartBtn = document.createElement('button');
+restartBtn.classList.add('btn');
+restartBtn.classList.add('btn-primary');
+restartBtn.id = 'restart';
+restartBtn.innerHTML = 'Restart';
+loseDiv.appendChild(restartBtn);
 
 const rect = {
     x: 100,
     y: 100,
     square: 50
-};
-
-const obst1 = {
-    pos: canvas.width,
-    up: 50,
-    down: 70
 }
 
-const obst2 = {
-    pos: canvas.width,
-    up: 50,
-    down: 70
+class Obst {
+    constructor(x,y,width,height){
+        this.x = x,
+        this.y = y,
+        this.width = width,
+        this.height = height;
+    }
+
+    update(){
+        this.x -= ObstacleSpeed;
+        ctx.beginPath();
+        ctx.rect(this.x,this.y,this.width,this.height);
+        ctx.fillStyle = 'green'
+        ctx.fill();
+        ctx.stroke();
+        if(this.x < - 30 ){
+            ObstaclesArray.shift();
+        }
+        // console.log(rect.y, thi)
+        if(rect.x + rect.square > this.x  &&
+            rect.x + rect.square < this.x + this.width &&
+            rect.y < this.height &&
+            this.height != canvas.height
+            ){
+                head.appendChild(loseDiv);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                gameLost = true;
+                clearInterval();
+                ctx.font = "30px Arial";
+                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 70,canvas.height/2);
+                ctx.stroke();
+            }
+        if(rect.x + rect.square > this.x &&
+            rect.x + rect.square  < this.x + this.width &&
+            rect.y + rect.square > this.y &&
+            this.height == canvas.height){
+                head.appendChild(loseDiv);
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                gameLost = true;
+                clearInterval();
+                ctx.font = "30px Arial";
+                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 70,canvas.height/2);
+                ctx.stroke();
+            }
+        if(rect.x > this.x &&
+            rect.x < this.x + this.width &&
+            rect.y < this.height &&
+            this.height != canvas.height){
+                head.appendChild(loseDiv);
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                gameLost = true;
+                clearInterval();
+                ctx.font = "30px Arial";
+                ctx.fillText(`You Lost - ${Score} Point`,(canvas.width/2) - 70,canvas.height/2);
+                ctx.stroke();
+            }
+        if(rect.x > this.x &&
+            rect.x < this.x + this.width &&
+            rect.y > this.y &&
+            this.height == canvas.height){
+                head.appendChild(loseDiv);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                gameLost = true;
+                clearInterval();
+                ctx.font = "30px Arial";
+                ctx.fillText(`You Lost - ${Score} Point `,(canvas.width/2) - 70,canvas.height/2);
+                ctx.stroke();
+            }
+    }
+
+
 }
 
 
@@ -53,39 +127,41 @@ function drawRect() {
 
 
 
-
-
-
-function createNewObstacle(){
-    drawObstacle();
-}
-
-function drawObstacle(){
-    obst1.pos -= ObstacleSpeed;
-    ctx.beginPath();
-    ctx.rect(obst1.pos, 0, 20, 150);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.rect(obst1.pos, 250, 20, 150);
-    ctx.stroke();
-    if(obst1.pos < 0){
-        obst1.pos = canvas.width;
-        ObstacleSpeed += 1;
+function createObstacles(){
+    canvasX = canvas.width;
+    upRandom = ((Math.random() * 1000)% 17)*23;
+    if(canvas.height - upRandom < rect.square){
+        upRandom -= 60;
     }
-    return
-    requestAnimationFrame(drawObstacle); 
+    downRandom = upRandom + GAP;
+
+    ObstaclesArray.push(new Obst(canvasX, 0 ,20, upRandom));
+    ObstaclesArray.push(new Obst(canvasX, downRandom,20,canvas.height));
 }
 
+
+
+// setInterval(createObstacles, 5000);
+
+function updateScore(){
+    ctx.font = "30px Arial";
+    ctx.fillText(`${Score++}`,canvas.width- 100, 50 );
+    ctx.stroke();
+}
 
 
 
 function update() {
     drawRect();
+    ObstaclesArray.forEach(obstacle => {
+        obstacle.update();
+    });
+    if(gameLost == true){
+        return;
+    }
     requestAnimationFrame(update);
+    updateScore();
 }
-
-
-setTimeout(createNewObstacle,5000)
 
 
 
@@ -135,5 +211,21 @@ document.addEventListener('keyup', ev => {
 });
 
 
-update();
+// update();
 
+function updateScore(){
+    ctx.font = "30px Arial";
+    ctx.fillText(`${Score++}`,canvas.width- 100, 50 );
+    ctx.stroke();
+}
+
+
+start.addEventListener('click', ev => {
+    update();
+    start.remove();
+    setInterval(createObstacles, 5000);
+})
+
+restartBtn.addEventListener('click', ev => {
+    location.reload();
+})
