@@ -11,6 +11,7 @@ let ObstacleSpeed = 1;
 let Score = 0; 
 let ObstaclesArray = []
 let gameLost = false;
+let timing = 2000;
 let head = document.querySelector('.head');
 let start = document.querySelector('#start');
 let loseDiv = document.createElement('div');
@@ -20,7 +21,10 @@ restartBtn.classList.add('btn-primary');
 restartBtn.id = 'restart';
 restartBtn.innerHTML = 'Restart';
 loseDiv.appendChild(restartBtn);
-
+console.log(window.innerWidth);
+if(window.innerWidth < 600){
+    timing = 3000;
+}
 const rect = {
     x: 100,
     y: 100,
@@ -44,7 +48,6 @@ class Obst {
         if(this.x < - 30 ){
             ObstaclesArray.shift();
         }
-        // console.log(rect.y, thi)
         if(rect.x + rect.square > this.x  &&
             rect.x + rect.square < this.x + this.width &&
             rect.y < this.height &&
@@ -243,7 +246,7 @@ RIGHT.addEventListener('touchend', function (e) {
 start.addEventListener('click', ev => {
     update();
     start.remove();
-    setInterval(createObstacles, 2000);
+    setInterval(createObstacles, timing);
 })
 
 restartBtn.addEventListener('click', ev => {
