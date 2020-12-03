@@ -13,9 +13,12 @@ let ObstaclesArray = []
 let gameLost = false;
 let timing = 2000;
 let head = document.querySelector('.head');
-let start = document.querySelector('#start');
+let start = document.querySelector('#startDiv');
 let loseDiv = document.createElement('div');
 let restartBtn = document.createElement('button');
+let startBtn = document.querySelector('#start');
+let level = document.querySelector('#levelSet');
+let size = 50;
 restartBtn.classList.add('btn');
 restartBtn.classList.add('btn-primary');
 restartBtn.id = 'restart';
@@ -25,10 +28,26 @@ console.log(window.innerWidth);
 if(window.innerWidth < 600){
     timing = 3000;
 }
+
+
+startBtn.addEventListener('click', ev => {
+    if(level.value == 'Easy'){
+        size = 25;
+    } 
+    if( level.value == 'Imposible')  {
+        size = 150;
+    }
+    rect.square = size;
+    update();
+    start.remove();
+    setInterval(createObstacles, timing);
+})
+
+
 const rect = {
     x: 100,
     y: 100,
-    square: 50
+    square: size
 }
 
 class Obst {
@@ -243,11 +262,6 @@ RIGHT.addEventListener('touchend', function (e) {
 
 
 
-start.addEventListener('click', ev => {
-    update();
-    start.remove();
-    setInterval(createObstacles, timing);
-})
 
 restartBtn.addEventListener('click', ev => {
     location.reload();
