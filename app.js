@@ -39,7 +39,7 @@ startBtn.addEventListener('click', ev => {
         size = 150;
     }
     if(level.value != 'Ana'){
-        // setInterval(createObstacles, timing);
+        setInterval(createObstacles, timing);
     }
     rect.square = size;
     update();
