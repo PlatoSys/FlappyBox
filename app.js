@@ -38,13 +38,13 @@ startBtn.addEventListener('click', ev => {
     if( level.value == 'Imposible')  {
         size = 150;
     }
-
+    if(level.value != 'Ana'){
+        // setInterval(createObstacles, timing);
+    }
     rect.square = size;
     update();
     start.remove();
-    if( level.value != 'Ana'){
-        setInterval(createObstacles, timing);
-    }
+
 })
 
 
