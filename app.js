@@ -31,16 +31,20 @@ if(window.innerWidth < 600){
 
 
 startBtn.addEventListener('click', ev => {
+
     if(level.value == 'Easy'){
         size = 25;
     } 
     if( level.value == 'Imposible')  {
         size = 150;
     }
+
     rect.square = size;
     update();
     start.remove();
-    setInterval(createObstacles, timing);
+    if( level.value != 'Ana'){
+        setInterval(createObstacles, timing);
+    }
 })
 
 
