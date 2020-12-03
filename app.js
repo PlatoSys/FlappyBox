@@ -4,7 +4,7 @@ const UP = document.querySelector('#up');
 const DOWN = document.querySelector('#down');
 const LEFT = document.querySelector('#left');
 const RIGHT = document.querySelector('#right');
-const GAP = 100;
+let GAP = 100;
 let Xspeed = 0;
 let Yspeed = 0;
 let ObstacleSpeed = 1;
@@ -38,12 +38,15 @@ startBtn.addEventListener('click', ev => {
     if( level.value == 'Imposible')  {
         size = 150;
     }
-    if(level.value != 'Ana'){
-        setInterval(createObstacles, timing);
+    if(level.value == 'Ana'){
+        size = 25;
+        GAP = 200;
     }
     rect.square = size;
     update();
     start.remove();
+    setInterval(createObstacles, timing);
+
 
 })
 
